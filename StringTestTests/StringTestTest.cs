@@ -34,7 +34,7 @@ namespace StringTestTests
             StringTest stringTest = new StringTest();
             stringTest.StringParser(testString, out testOutput, out letterCount);
 
-            Assert.IsTrue(letterCount.Count == 16); // there are 15 distinct character in the test string
+            Assert.IsTrue(letterCount.Count == 15); // there are 15 distinct character in the test string
 
             // validate each letter's count
             Assert.IsTrue(letterCount.ContainsKey("S") && letterCount["S"] == 1);
@@ -42,7 +42,6 @@ namespace StringTestTests
             Assert.IsTrue(letterCount.ContainsKey("a") && letterCount["a"] == 2);
             Assert.IsTrue(letterCount.ContainsKey("t") && letterCount["t"] == 3);
             Assert.IsTrue(letterCount.ContainsKey("l") && letterCount["l"] == 1);
-            Assert.IsTrue(letterCount.ContainsKey(" ") && letterCount[" "] == 2);
             Assert.IsTrue(letterCount.ContainsKey("P") && letterCount["P"] == 1);
             Assert.IsTrue(letterCount.ContainsKey("c") && letterCount["c"] == 2);
             Assert.IsTrue(letterCount.ContainsKey("i") && letterCount["i"] == 4);
@@ -52,6 +51,9 @@ namespace StringTestTests
             Assert.IsTrue(letterCount.ContainsKey("v") && letterCount["v"] == 1);
             Assert.IsTrue(letterCount.ContainsKey("r") && letterCount["r"] == 1);
             Assert.IsTrue(letterCount.ContainsKey("y") && letterCount["y"] == 1);
+
+            // ensures the space didn't get logged
+            Assert.IsFalse(letterCount.ContainsKey(" "));
         }
     }
 }

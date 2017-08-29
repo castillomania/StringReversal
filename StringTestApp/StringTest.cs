@@ -9,16 +9,14 @@ namespace StringTestApp
     public class StringTest
     {
         private Dictionary<string, long> _letterCount { get; set; }
+
         public StringTest()
         {
-            _letterCount = new Dictionary<string, long>(); // initialize the dictionary in the constructor
+            // initialize the dictionary in the constructor
+            _letterCount = new Dictionary<string, long>(); 
         }
 
         /// <summary>
-        /// Assumptions:
-        /// Upper case and lower case letters should be counted separately from one another
-        /// Non-letter characters should be counted as well
-        /// 
         /// Notes;
         /// I used a dictionary to store the letter counts because C# doesn't have a native HashTable. Using Java, I would have used that instead
         /// </summary>
@@ -27,13 +25,18 @@ namespace StringTestApp
         /// <param name="letterCount">A dictionary containing each letter in the reversed string as well as the number of times the letter appears</param>
         public void StringParser(string input, out string reversedString, out Dictionary<string, long> letterCount)
         {
-            reversedString = ReverseString(input);
-            letterCount = _letterCount;
+            reversedString = ReverseString(input); // this does the reversing and logging
+            letterCount = _letterCount; // set the output variable to the member variable in which the character logging was stored
         }
 
+        /// <summary>
+        /// Reverses the provided string and counts the appearance of each character in the string
+        /// </summary>
+        /// <param name="input">The string to be reversed and logged</param>
+        /// <returns></returns>
         public string ReverseString(string input)
         {
-            char[] inputArray = input.ToCharArray();
+            char[] inputArray = input.ToCharArray(); // convert the string to a character array
 
             long j = 0; // output array incrementer
             long i = inputArray.LongLength; // input array incrementer
@@ -45,7 +48,12 @@ namespace StringTestApp
                 i--; // decrement the incrementer since C# uses 0-base array indexing
                 outputArray[j] = inputArray[i]; // add the decrementing char to the incrementing output
 
-                countLetters(inputArray[i].ToString()); // ensure that the added letter is counted
+                // only log the character if it is a letter (numbers and special characters aren't logged)
+                if (Char.IsLetter(inputArray[i]))
+                { 
+                    countLetters(inputArray[i].ToString()); // ensure that the added letter is counted
+                }
+
                 j++; // increment the output array for the next letter
             }
 
@@ -53,6 +61,14 @@ namespace StringTestApp
             return new string(outputArray);
         }
 
+        /// <summary>
+        /// Logs the appearance of the letter
+        /// 
+        /// Assumptions:
+        /// Upper case and lower case letters should be counted separately from one another
+        /// Non-letter characters should not be counted
+        /// </summary>
+        /// <param name="letter">The letter to be logged</param>
         public void countLetters(string letter)
         {
             // checks the dictionary to see if the letter has already been added
